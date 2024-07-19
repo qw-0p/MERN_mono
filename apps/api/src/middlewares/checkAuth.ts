@@ -11,13 +11,14 @@ export default (req, res, next) => {
 
       next();
     } catch (e) {
-      return res.status(405).json({
-        message: 'Not allowed!'
+      return res.status(403).json({
+        message: 'Not allowed!',
+        error: e.message
       })
     }
   } else {
-    return res.status(405).json({
-      message: 'Not allowed'
+    return res.status(403).json({
+      message: 'Not allowed',
     })
   }
 }

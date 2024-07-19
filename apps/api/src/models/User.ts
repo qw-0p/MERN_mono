@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import {DocumentResult} from '../types'
 
-interface IUser {
+interface IUser extends DocumentResult<IUser> {
   fullName: string;
   email: string;
   passwordHash: string;
@@ -20,10 +21,9 @@ const UserSchema = new mongoose.Schema<IUser>({
     type: String,
     required: true,
   },
-  avatarUrl: String
+  avatarUrl: String,
 }, {
   timestamps: true,
-  selectPopulatedPaths: false
 })
 
 export default mongoose.model('User', UserSchema)
