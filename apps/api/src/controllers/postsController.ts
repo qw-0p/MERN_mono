@@ -10,7 +10,6 @@ const getAll = async (req, res) => {
       posts,
     });
   } catch (e) {
-    console.error(e);
     res.status(StatusCodes.OK).json({
       message: 'Cant get posts',
     });
@@ -23,7 +22,7 @@ const getOne = async (req, res) => {
 
     postsService.findPostById(postId).then((doc) => {
       if (!doc) {
-        return res.status(404).json({
+        return res.status(StatusCodes.NOT_FOUND).json({
           message: 'Post is not found',
         });
       }
@@ -32,7 +31,7 @@ const getOne = async (req, res) => {
     });
   } catch (e) {
     console.error(e);
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Cant get posts',
     });
   }
@@ -46,7 +45,7 @@ const create = async (req, res) => {
 
     res.status(StatusCodes.CREATED).json(post);
   } catch (e) {
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Cant create post',
       error: e.message,
     });
@@ -62,7 +61,7 @@ const update = async (req, res) => {
     res.status(StatusCodes.OK).json(post);
   } catch (e) {
     console.error(e);
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Cant update post',
     });
   }
@@ -82,7 +81,7 @@ const remove = async (req, res) => {
     });
   } catch (e) {
     console.error(e);
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Cant get post',
     });
   }

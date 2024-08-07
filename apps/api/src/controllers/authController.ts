@@ -1,13 +1,14 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import authService from '../services/authService';
+import { StatusCodes } from 'http-status-codes';
 
 const login = async (req, res) => {
   try {
     const user = await authService.signIn(req.params.email);
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         message: 'User is not found',
       });
     }
@@ -18,7 +19,7 @@ const login = async (req, res) => {
     );
 
     if (!isValidPass) {
-      return res.status(400).json({
+      return res.status(StatusCodes.BAD_REQUEST).json({
         message: 'Login or password is not correct',
       });
     }
@@ -42,7 +43,7 @@ const login = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Authorization is failed',
     });
   }
@@ -64,7 +65,7 @@ const getUser = async (req, res) => {
     res.json(userData);
   } catch (err) {
     console.error(err);
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Some error',
     });
   }
@@ -101,7 +102,7 @@ const register = async (req, res) => {
     });
   } catch (e) {
     console.error(e);
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Cant register',
     });
   }

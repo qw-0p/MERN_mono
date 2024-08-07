@@ -5,7 +5,7 @@ import {
   postUpdateValidation,
 } from '../middlewares/validations';
 import { postsController } from '../controllers';
-import { handleErrorValidation, isAuth } from '../middlewares';
+import { handleErrorValidation, isAdmin, isAuth } from '../middlewares';
 
 const router = express.Router();
 
@@ -25,9 +25,15 @@ router.post(
 );
 
 //Update one post
-router.patch('/:id', postUpdateValidation, postsController.update);
+router.patch('/:id', isAuth, postUpdateValidation, postsController.update);
 
 //Delete one post
-router.delete('/:id', getPostValidation, postsController.remove);
+router.delete(
+  '/:id',
+  isAuth,
+  isAdmin,
+  getPostValidation,
+  postsController.remove
+);
 
 export default router;
