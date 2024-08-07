@@ -9,7 +9,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 const host = process.env.HOST ?? 'localhost';
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+const port = process.env.API_PORT ? Number(process.env.API_PORT) : 3000;
 
 const app = express();
 
